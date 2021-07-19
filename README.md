@@ -1,8 +1,8 @@
 # mergerfs-docker
 [![build](https://github.com/hvalev/mergerfs-docker/actions/workflows/build.yml/badge.svg)](https://github.com/hvalev/mergerfs-docker/actions/workflows/build.yml)
 ![Shiny%20version](https://img.shields.io/badge/mergerfs%20version-2.32.5-green)
-![Docker Pulls](https://img.shields.io/docker/pulls/hvalev/mergerfs-docker)
-![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/hvalev/mergerfs-docker)
+![Docker Pulls](https://img.shields.io/docker/pulls/hvalev/mergerfs)
+![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/hvalev/mergerfs)
 
 All credit goes to [trapexit/mergerfs](https://github.com/trapexit/mergerfs).
 
