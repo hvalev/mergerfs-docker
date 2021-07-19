@@ -7,7 +7,7 @@
 All credit goes to [trapexit/mergerfs](https://github.com/trapexit/mergerfs).
 
 ## Motivation
-If you are here, then you are most likely looking for a simple solution to fuse files and folders on multiple hard drives to a single mountpoint. What I could not find, however, was a simple and regularly updated docker container which simply takes input volumes and merges them to a predefined path. This repository attempts to do just that.
+If you are here, then you are most likely looking for a simple solution to fuse files and folders on multiple hard drives to a single mountpoint using mergerfs and docker. There are multiple docker containers which dockerize mergerfs, however what I could not find was a simple and regularly updated one which simply takes input volumes and merges them to a predefined path. No pain, no configuration, no hassle. This repository attempts to do just that.
 
 As you will see below, you just need to mount all drives you wish to merge to ```/disks``` and they will appear as one drive under ```/merged```. It is important that for the merged volume, you add the ```:shared``` bind to expose the containers' merged path to the host. To adjust the path where the merged drives would appear on the host, simply change the ```/mnt/merged``` path to one of your choice. That's it! 
 
