@@ -1,9 +1,5 @@
 # mergerfs
 
-![Auto-bump mergerfs](https://github.com/OJFord/docker-mergerfs/workflows/Auto-bump%20mergerfs/badge.svg)
-
-![Build & publish](https://github.com/OJFord/docker-mergerfs/workflows/Build%20&%20publish/badge.svg)
-
 All credit for the file-system itself to trapexit/mergerfs.
 
 ## Usage
