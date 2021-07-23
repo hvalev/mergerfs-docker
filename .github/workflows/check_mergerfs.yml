@@ -14,7 +14,7 @@ jobs:
         name: Get latest mergerfs release
         id: mergerfs-version
         run: |
-          echo ::set-output name=release_tag::$(curl -sL https://api.github.com/repos/trapexit/mergerfs/releases/latest | jq -r ".tag_name" | cut -b 2-)
+          echo ::set-output name=release_tag::$(curl -sL https://api.github.com/repos/trapexit/mergerfs/releases/latest | jq -r ".tag_name" | cut -b 1-)
           echo ::set-output name=current_tag::$(<mergerfs-version.txt)
       - 
         name: Update mergerfs
