@@ -1,6 +1,6 @@
 # mergerfs-docker
 [![build](https://github.com/hvalev/mergerfs-docker/actions/workflows/build.yml/badge.svg)](https://github.com/hvalev/mergerfs-docker/actions/workflows/build.yml)
-![Shiny%20version](https://img.shields.io/badge/mergerfs%20version-2.33.1-green)
+![Shiny%20version](https://img.shields.io/badge/mergerfs%20version-2.33.2-green)
 ![Docker Pulls](https://img.shields.io/docker/pulls/hvalev/mergerfs)
 ![Docker Image Size (latest by date)](https://img.shields.io/docker/image-size/hvalev/mergerfs)
 
