@@ -1,4 +1,4 @@
-FROM alpine:3.15.4 AS builder
+FROM alpine:3.16.0 AS builder
 ENV MERGERFS_VERSION 2.33.3
 
 RUN apk add g++ git linux-headers make python3
@@ -9,7 +9,7 @@ RUN git checkout "$MERGERFS_VERSION"
 RUN make
 RUN mv build/mergerfs /bin/mergerfs
 
-FROM alpine:3.15.4
+FROM alpine:3.16.0
 COPY --from=builder /bin/mergerfs /usr/local/bin/mergerfs
 
 RUN apk --no-cache add fuse libgcc libstdc++
