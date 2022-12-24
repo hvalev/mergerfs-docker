@@ -1,7 +1,7 @@
 name: Check mergerfs version
-on: workflow_dispatch
-#  schedule:
-#    - cron: '0 4 * * 6'
+on: 
+  schedule:
+    - cron: '0 4 * * 6'
 
 jobs:
   updateMergerfs:
