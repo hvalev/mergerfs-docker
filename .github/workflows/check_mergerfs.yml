@@ -1,8 +1,8 @@
 name: Check mergerfs version
-# on: 
-#   schedule:
-#     - cron: '0 4 * * 6'
-on: [workflow_dispatch]
+on: 
+  schedule:
+    - cron: '0 4 * * 6'
+
 jobs:
   updateMergerfs:
     runs-on: ubuntu-20.04
@@ -15,14 +15,6 @@ jobs:
         run: |
           echo "release_tag=$(curl -sL https://api.github.com/repos/trapexit/mergerfs/releases/latest | jq -r ".tag_name" | cut -b 1-)" >> $GITHUB_OUTPUT
           echo "current_tag=$(<mergerfs-version.txt)" >> $GITHUB_OUTPUT
-        # run: |
-        #   echo ::set-output name=release_tag::$(curl -sL https://api.github.com/repos/trapexit/mergerfs/releases/latest | jq -r ".tag_name" | cut -b 1-)
-        #   echo ::set-output name=current_tag::$(<mergerfs-version.txt)
-      # - name: Get latest mergerfs release
-      #   id: mergerfs-version
-      #   run: |
-      #     echo ::set-output name=release_tag::$(curl -sL https://api.github.com/repos/trapexit/mergerfs/releases/latest | jq -r ".tag_name" | cut -b 1-)
-      #     echo ::set-output name=current_tag::$(<mergerfs-version.txt)
       - name: Update mergerfs
         if: steps.mergerfs-version.outputs.current_tag != steps.mergerfs-version.outputs.release_tag
         env:
