@@ -8,13 +8,21 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: install libs
+      - name: Install libs
         run: sudo apt-get update && sudo apt-get install curl jq -y
       - name: Get latest mergerfs release
         id: mergerfs-version
         run: |
-          echo ::set-output name=release_tag::$(curl -sL https://api.github.com/repos/trapexit/mergerfs/releases/latest | jq -r ".tag_name" | cut -b 1-)
-          echo ::set-output name=current_tag::$(<mergerfs-version.txt)
+          echo "release_tag=$(curl -sL https://api.github.com/repos/trapexit/mergerfs/releases/latest | jq -r ".tag_name" | cut -b 1-)" >> $GITHUB_OUTPUT
+          echo "current_tag=$(<mergerfs-version.txt)" >> $GITHUB_OUTPUT
+        # run: |
+        #   echo ::set-output name=release_tag::$(curl -sL https://api.github.com/repos/trapexit/mergerfs/releases/latest | jq -r ".tag_name" | cut -b 1-)
+        #   echo ::set-output name=current_tag::$(<mergerfs-version.txt)
+      # - name: Get latest mergerfs release
+      #   id: mergerfs-version
+      #   run: |
+      #     echo ::set-output name=release_tag::$(curl -sL https://api.github.com/repos/trapexit/mergerfs/releases/latest | jq -r ".tag_name" | cut -b 1-)
+      #     echo ::set-output name=current_tag::$(<mergerfs-version.txt)
       - name: Update mergerfs
         if: steps.mergerfs-version.outputs.current_tag != steps.mergerfs-version.outputs.release_tag
         env:
