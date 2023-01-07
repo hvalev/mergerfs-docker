@@ -1,13 +1,15 @@
 name: Check mergerfs version
-on: 
-  schedule:
-    - cron: '0 4 * * 6'
-
+# on: 
+#   schedule:
+#     - cron: '0 4 * * 6'
+on: [workflow_dispatch]
 jobs:
   updateMergerfs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
+      - name: install libs
+        run: sudo apt-get update && sudo apt-get install curl jq -y
       - name: Get latest mergerfs release
         id: mergerfs-version
         run: |
