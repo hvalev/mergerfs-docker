@@ -1,5 +1,5 @@
 FROM alpine:3.17.3 AS builder
-ENV MERGERFS_VERSION=2.35.0
+ENV MERGERFS_VERSION=2.35.1
 
 RUN apk add g++ git linux-headers make python3
 RUN git clone https://github.com/trapexit/mergerfs /mergerfs
