@@ -4,7 +4,7 @@ function cleanup {
     umount /merged
 }
 
-mergerfs -o allow_other,use_ino /disks/*: /merged
+mergerfs -o allow_other,use_ino,cache.files=partial,dropcacheonclose=true,moveonenospc=true,category.create=mfs /disks/*: /merged
 
 
 trap cleanup EXIT INT
