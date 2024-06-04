@@ -12,12 +12,11 @@ If you are here, then you are most likely looking for a simple solution to fuse 
 
 ## How to run it
 Docker run:
-```
+```bash
 docker run -v /mnt/nd1:/disks/nd1 -v /mnt/nd2:/disks/nd2 -v /mnt/nd3:/disks/nd3 -v /mnt/merged:/merged:shared --device /dev/fuse --cap-add SYS_ADMIN -d hvalev/mergerfs
 ```
 docker-compose:
-```
-version: "3.8"
+```yaml
 services:
   mergerfs:
     image: hvalev/mergerfs:latest
