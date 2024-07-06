@@ -33,9 +33,21 @@ services:
     restart: always
 ```
 
-## Customizing
-* If you would like to customize the mergerfs command with additional options, you can overwrite entrypoint.sh by mounting your own using an additional volume mount.
-* If you would like to combine this with samba to share it over the network, you could also use a samba docker container.
+
+## Environnment variables
+
+The following environnement variables allow to change mergerFS options:
+
+You can provide a list of custom options:
+* `MERGERFS_OPTIONS="cache.files=partial,dropcacheonclose=true,category.create=mfs"`
+
+Or pass a config file through a volume:
+* MERGERFS_CONFIG_PATH=/etc/mergerfs/config
+Note that specyfing a config will ignore `MERGERFS_OPTIONS`.
+
+These will overwrite the default options provided in the image entrypoint so make sure you know what you are doing.
+See [trapexit/mergerfs options reference](https://github.com/trapexit/mergerfs?tab=readme-ov-file#mount-options) for more details on available options.
+
 
 ## Acknowledgements
 The following resources have been extremely helpful:
