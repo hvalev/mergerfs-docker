@@ -14,14 +14,31 @@ cleanup() {
 # Define the default parameters file
 PARAMETERS_FILE="/config/parameters.conf"
 
-# Check if MERGERFS_PARAMS is set, override PARAMETERS_FILE if it is
+log() {
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $1"
+}
+
+# Determine source of parameters
 if [ -n "$MERGERFS_PARAMS" ]; then
-    echo "Using parameters from MERGERFS_PARAMS environment variable."
-    echo "$MERGERFS_PARAMS" > "$PARAMETERS_FILE"
+    log "Using parameters from MERGERFS_PARAMS environment variable."
+    PARAMS="$MERGERFS_PARAMS"
+else
+    if [ ! -f "$PARAMETERS_FILE" ]; then
+        log "Error: /config/parameters.conf not found and MERGERFS_PARAMS is not set."
+        exit 1
+    fi
+
+    # Merge parameters from the file into a single line without comments or empty lines
+    PARAMS=$(grep -v '^\s*#' "$PARAMETERS_FILE" | sed '/^\s*$/d' | sed 's/^[ \t]*//;s/[ \t]*$//' | paste -sd ',' -)
+
+    if [ -z "$PARAMS" ]; then
+        log "Error: No valid parameters found in $PARAMETERS_FILE."
+        exit 1
+    else
+        log "Collecting parameters from configuration file found at /config/parameters.conf"
+    fi
 fi
 
-# Merge parameters from the file into a single line without comments or empty lines
-PARAMS=$(grep -v '^#' "$PARAMETERS_FILE" | sed '/^\s*$/d' | sed 's/^[ \t]*//;s/[ \t]*$//' | paste -sd ',' -)
 
 # Prepare the mergerfs command
 COMMAND="mergerfs -o $PARAMS /disks/*: /merged"
