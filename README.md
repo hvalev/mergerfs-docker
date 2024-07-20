@@ -34,8 +34,63 @@ services:
 ```
 
 ## Customizing
-* If you would like to customize the mergerfs command with additional options, you can overwrite entrypoint.sh by mounting your own using an additional volume mount.
-* If you would like to combine this with samba to share it over the network, you could also use a samba docker container.
+* If you would like to customize the mergerfs command with additional options, you can overwrite `parameters.conf` with your own using an additional volume mount that maps onto `/config` inside the docker. You can use the one in the repo as a template.
+* You can also override the default `mergerfs` parameters by using the `MERGERFS_PARAMS` environment variable as follows: 
+```yaml
+services:
+  mergerfs:
+    image: hvalev/mergerfs:latest
+    container_name: mergerfs
+    environment:
+      MERGERFS_PARAMS: 'moveonenospc=true,dropcacheonclose=true,category.create=mfs,cache.files=partial'
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
+    volumes:
+       - /mnt/nd1:/disks/nd1
+       - /mnt/nd2:/disks/nd2
+       - /mnt/nd3:/disks/nd3
+       - /mnt/merged:/merged:shared
+    restart: always
+```
+* If you would like to combine this with samba to share it over the network, you could also use a samba docker container. Below is an example with a sample user read-write and guest read-only access.
+```yaml
+services:
+  mergerfs:
+    image: hvalev/mergerfs:latest
+    container_name: mergerfs
+    environment:
+      MERGERFS_PARAMS: 'moveonenospc=true,dropcacheonclose=true,category.create=mfs,cache.files=partial'
+    cap_add:
+      - SYS_ADMIN
+    devices:
+      - /dev/fuse:/dev/fuse
+    volumes:
+      - /mnt/hd1:/disks/hd1
+      - /mnt/hd2:/disks/hd2
+      - /mnt/hd3:/disks/hd3
+      - /mnt/hd:/merged:shared
+    restart: always
+
+  samba:
+    image: elswork/samba:3.2.8
+    container_name: samba
+    environment:
+      TZ: 'Europe/Amsterdam'
+    ports:
+      - 139:139
+      - 445:445
+    volumes:
+      - /mnt/hd:/mnt/hd
+    command: '-u "1000:1000:user:user:user_password" 
+              -u "1000:1000:guest:guest:guest_password"
+              -s "hd:/mnt/hd:rw:user"
+              -s "media:/mnt/hd:ro:guest"'
+    restart: unless-stopped
+    depends_on:
+      - mergerfs
+```
 
 ## Acknowledgements
 The following resources have been extremely helpful:

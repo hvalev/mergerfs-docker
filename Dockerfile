@@ -18,6 +18,9 @@ RUN echo user_allow_other >> /etc/fuse.conf
 
 COPY entrypoint.sh entrypoint.sh
 
+RUN mkdir /config
+COPY parameters.conf /config/parameters.conf
+
 RUN mkdir /disks && \
     chmod +x entrypoint.sh
 
