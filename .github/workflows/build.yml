@@ -59,8 +59,8 @@ jobs:
         with:
           push: true
           tags: |
-            hvalev/mergerfs-tools:${{ steps.get_version.outputs.version }}
-            hvalev/mergerfs-tools:latest
+            hvalev/mergerfs:tools-${{ steps.get_version.outputs.version }}
+            hvalev/mergerfs:tools-latest
           target: mergerfs-tools-release
           context: .
           platforms: |
