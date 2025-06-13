@@ -8,13 +8,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Install libs
         run: sudo apt-get update && sudo apt-get install curl jq -y
+
       - name: Get latest mergerfs release
         id: mergerfs-version
         run: |
           echo "release_tag=$(curl -sL https://api.github.com/repos/trapexit/mergerfs/releases/latest | jq -r ".tag_name" | cut -b 1-)" >> $GITHUB_OUTPUT
           echo "current_tag=$(<mergerfs-version.txt)" >> $GITHUB_OUTPUT
+
       - name: Update mergerfs
         if: steps.mergerfs-version.outputs.current_tag != steps.mergerfs-version.outputs.release_tag
         env:
@@ -22,11 +25,13 @@ jobs:
         run: |
           # Update current release
           echo ${{ steps.mergerfs-version.outputs.release_tag }} > mergerfs-version.txt
+
       - name: Update Readme.md & Dockerfile
         uses: jacobtomlinson/gha-find-replace@master
         with:
           find: ${{ steps.mergerfs-version.outputs.current_tag }}
           replace: ${{ steps.mergerfs-version.outputs.release_tag }}
+          
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7
         with:
