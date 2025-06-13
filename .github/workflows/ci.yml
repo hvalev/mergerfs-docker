@@ -10,24 +10,24 @@ jobs:
   buildx:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: checkout
         uses: actions/checkout@v4
 
-      - name: Get Version
+      - name: get Version
         id: get_version
         uses: battila7/get-version-action@v2.3.0
 
-      - name: Set up QEMU
+      - name: set up QEMU
         uses: docker/setup-qemu-action@v3
 
-      - name: Set up Docker Buildx
+      - name: set up docker buildx
         id: buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Available platforms
+      - name: print available platforms
         run: echo ${{ steps.buildx.outputs.platforms }}
 
-      - name: Build Docker images
+      - name: build docker images
         uses: docker/build-push-action@v6
         with:
           context: .
