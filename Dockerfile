@@ -38,4 +38,6 @@ ENTRYPOINT ["/entrypoint.sh"]
 FROM mergerfs-release AS mergerfs-tools-release
 COPY --from=builder-mergerfs-tools /bin/mergerfs.* /usr/local/bin/
 
+RUN apk add python3 rsync
+
 ENTRYPOINT ["/entrypoint.sh"]
