@@ -1,4 +1,4 @@
-FROM alpine:3.22.1 AS builder-mergerfs
+FROM alpine:3.22.2 AS builder-mergerfs
 ENV MERGERFS_VERSION=2.40.2
 
 RUN apk add g++ git linux-headers make python3
@@ -17,7 +17,7 @@ RUN make
 RUN mv src/mergerfs.* /bin/
 RUN chmod +x /bin/mergerfs.*
 
-FROM alpine:3.22.1 AS mergerfs-release
+FROM alpine:3.22.2 AS mergerfs-release
 COPY --from=builder-mergerfs /bin/mergerfs /usr/local/bin/mergerfs
 
 RUN apk --no-cache add fuse libgcc libstdc++
