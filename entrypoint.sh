@@ -41,7 +41,7 @@ fi
 
 
 # Prepare the mergerfs command
-COMMAND="mergerfs -o $PARAMS /disks/*: /merged"
+COMMAND="mergerfs -o $PARAMS /disks/* /merged"
 
 # Print the command being executed
 echo "Executing: $COMMAND"
