@@ -34,7 +34,7 @@ jobs:
           password: ${{ secrets.DOCKERHUBTOKEN }}
 
       - name: build mergerfs docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           push: true
           tags: |
@@ -52,7 +52,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: build mergerfs-tools docker image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           push: true
           tags: |
